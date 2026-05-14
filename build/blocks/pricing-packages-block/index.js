@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/blocks/pricing-accordion/edit.js"
-/*!**********************************************!*\
-  !*** ./src/blocks/pricing-accordion/edit.js ***!
-  \**********************************************/
+/***/ "./src/blocks/pricing-packages-block/edit.js"
+/*!***************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/edit.js ***!
+  \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/pricing-accordion/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/pricing-packages-block/editor.scss");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 /**
@@ -53,57 +53,30 @@ __webpack_require__.r(__webpack_exports__);
  * @return {Element} Element to render.
  */
 
-function Edit({
-  attributes,
-  setAttributes
-}) {
-  const {
-    featured,
-    link = ""
-  } = attributes;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+function Edit() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
       ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Willow Blocks – hello from the editor!", "willow-blocks")
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Pricing Accordion", "willow-blocks"),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Featured Package", "willow-blocks"),
-          checked: featured,
-          onChange: value => setAttributes({
-            featured: value
-          }),
-          help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Mark this package as the "Most Popular" package.', "willow-blocks")
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.HorizontalRule, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Package Link", "willow-blocks"),
-          value: link,
-          onChange: newUrl => setAttributes({
-            link: newUrl
-          }),
-          placeholder: "https://example.com",
-          help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Enter the Parting Pro link for this package.", "willow-blocks")
-        })]
-      })
-    })]
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Willow Blocks – pricing packages block editor!", "willow-blocks")
+    })
   });
 }
 
 /***/ },
 
-/***/ "./src/blocks/pricing-accordion/index.js"
-/*!***********************************************!*\
-  !*** ./src/blocks/pricing-accordion/index.js ***!
-  \***********************************************/
+/***/ "./src/blocks/pricing-packages-block/index.js"
+/*!****************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/index.js ***!
+  \****************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/pricing-accordion/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/blocks/pricing-accordion/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/blocks/pricing-accordion/save.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/blocks/pricing-accordion/block.json");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/pricing-packages-block/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/blocks/pricing-packages-block/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/blocks/pricing-packages-block/save.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/blocks/pricing-packages-block/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -145,10 +118,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ },
 
-/***/ "./src/blocks/pricing-accordion/save.js"
-/*!**********************************************!*\
-  !*** ./src/blocks/pricing-accordion/save.js ***!
-  \**********************************************/
+/***/ "./src/blocks/pricing-packages-block/save.js"
+/*!***************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/save.js ***!
+  \***************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -157,8 +130,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -176,20 +147,16 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
-
 function save() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save(),
-    children: 'Willow Blocks – hello from the saved content!'
-  });
+  return null;
 }
 
 /***/ },
 
-/***/ "./src/blocks/pricing-accordion/editor.scss"
-/*!**************************************************!*\
-  !*** ./src/blocks/pricing-accordion/editor.scss ***!
-  \**************************************************/
+/***/ "./src/blocks/pricing-packages-block/editor.scss"
+/*!*******************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/editor.scss ***!
+  \*******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -198,10 +165,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ },
 
-/***/ "./src/blocks/pricing-accordion/style.scss"
-/*!*************************************************!*\
-  !*** ./src/blocks/pricing-accordion/style.scss ***!
-  \*************************************************/
+/***/ "./src/blocks/pricing-packages-block/style.scss"
+/*!******************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/style.scss ***!
+  \******************************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -260,13 +227,13 @@ module.exports = window["wp"]["i18n"];
 
 /***/ },
 
-/***/ "./src/blocks/pricing-accordion/block.json"
-/*!*************************************************!*\
-  !*** ./src/blocks/pricing-accordion/block.json ***!
-  \*************************************************/
+/***/ "./src/blocks/pricing-packages-block/block.json"
+/*!******************************************************!*\
+  !*** ./src/blocks/pricing-packages-block/block.json ***!
+  \******************************************************/
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-accordion","version":"0.1.0","title":"Pricing Accordion","category":"widgets","icon":"smiley","description":"A custom Accordion Item for the Pricing Section of the Willow Theme.","example":{},"attributes":{"featured":{"type":"boolean","default":false},"link":{"type":"string","default":""}},"supports":{"html":false},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-package-block","version":"0.1.0","title":"Pricing Packages Block","category":"widgets","icon":"smiley","description":"A custom block for the Pricing Section of the Willow Theme.","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScriptModule":"file:./view.js","render":"file:./render.php"}');
 
 /***/ }
 
@@ -386,8 +353,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"blocks/pricing-accordion/index": 0,
-/******/ 			"blocks/pricing-accordion/style-index": 0
+/******/ 			"blocks/pricing-packages-block/index": 0,
+/******/ 			"blocks/pricing-packages-block/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -437,7 +404,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["blocks/pricing-accordion/style-index"], () => (__webpack_require__("./src/blocks/pricing-accordion/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["blocks/pricing-packages-block/style-index"], () => (__webpack_require__("./src/blocks/pricing-packages-block/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -34,38 +34,12 @@ import "./editor.scss";
  *
  * @return {Element} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
-	const { featured, link = "" } = attributes;
-
+export default function Edit() {
 	return (
 		<>
 			<p {...useBlockProps()}>
-				{__("Willow Blocks – hello from the editor!", "willow-blocks")}
+				{__("Willow Blocks – pricing packages block editor!", "willow-blocks")}
 			</p>
-			<InspectorControls>
-				<PanelBody title={__("Pricing Accordion", "willow-blocks")}>
-					<ToggleControl
-						label={__("Featured Package", "willow-blocks")}
-						checked={featured}
-						onChange={(value) => setAttributes({ featured: value })}
-						help={__(
-							'Mark this package as the "Most Popular" package.',
-							"willow-blocks",
-						)}
-					/>
-					<HorizontalRule />
-					<TextControl
-						label={__("Package Link", "willow-blocks")}
-						value={link}
-						onChange={(newUrl) => setAttributes({ link: newUrl })}
-						placeholder="https://example.com"
-						help={__(
-							"Enter the Parting Pro link for this package.",
-							"willow-blocks",
-						)}
-					/>
-				</PanelBody>
-			</InspectorControls>
 		</>
 	);
 }

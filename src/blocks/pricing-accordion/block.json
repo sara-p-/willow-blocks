@@ -8,6 +8,16 @@
 	"icon": "smiley",
 	"description": "A custom Accordion Item for the Pricing Section of the Willow Theme.",
 	"example": {},
+	"attributes": {
+		"featured": {
+			"type": "boolean",
+			"default": false
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		}
+	},
 	"supports": {
 		"html": false
 	},

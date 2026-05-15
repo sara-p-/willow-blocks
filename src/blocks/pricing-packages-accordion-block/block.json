@@ -4,8 +4,8 @@
 	"name": "willow-blocks/pricing-packages-accordion-block",
 	"version": "0.1.0",
 	"title": "Pricing Packages Accordion Block",
-	"category": "widgets",
-	"icon": "smiley",
+	"category": "willow-blocks",
+	"icon": "list-view",
 	"description": "A custom accordion block for the Pricing Section of the Willow Theme.",
 	"example": {},
 	"supports": {

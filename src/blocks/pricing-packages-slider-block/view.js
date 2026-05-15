@@ -7,7 +7,7 @@ import {
 
 const decodeHtmlEntities = (str) => {
 	const txt = document.createElement("textarea");
-	txt.innerHTML = str;
+	txt.innerHTML = str.replace(/<br\s*\/?>/gi, "\n");
 	return txt.value;
 };
 
@@ -23,7 +23,7 @@ const { state, actions, callbacks } = store(
 			/** Display title: falls back to rendered title string */
 			packageTitle() {
 				const ctx = getContext();
-				return ctx?.item?.meta?._pp_title || ctx?.item?.title?.rendered || "";
+				return ctx?.item?.mappedTitle || "";
 			},
 
 			packageDescription() {
@@ -113,6 +113,9 @@ const { state, actions, callbacks } = store(
 						const flags = post.meta?._pp_list_plus ?? [];
 						return {
 							...post,
+							mappedTitle: decodeHtmlEntities(
+								post.meta?._pp_title || post.title?.rendered || "",
+							),
 							listRows: items.map((text, i) => ({
 								text: decodeHtmlEntities(text ?? ""),
 								isPlus: Boolean(flags[i]),

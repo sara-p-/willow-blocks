@@ -235,7 +235,7 @@ module.exports = window["wp"]["i18n"];
   \****************************************************************/
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-packages-accordion-block","version":"0.1.0","title":"Pricing Packages Accordion Block","category":"widgets","icon":"smiley","description":"A custom accordion block for the Pricing Section of the Willow Theme.","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScriptModule":"file:./view.js","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-packages-accordion-block","version":"0.1.0","title":"Pricing Packages Accordion Block","category":"willow-blocks","icon":"list-view","description":"A custom accordion block for the Pricing Section of the Willow Theme.","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScriptModule":"file:./view.js","render":"file:./render.php"}');
 
 /***/ }
 

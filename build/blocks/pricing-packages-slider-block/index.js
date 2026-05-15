@@ -26,7 +26,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const decodeHtmlEntities = str => {
   const txt = document.createElement("textarea");
-  txt.innerHTML = str;
+  txt.innerHTML = str.replace(/<br\s*\/?>/gi, "\n");
   return txt.value;
 };
 function Edit() {
@@ -48,6 +48,7 @@ function Edit() {
         const flags = post.meta?._pp_list_plus ?? [];
         return {
           ...post,
+          mappedTitle: decodeHtmlEntities(post.meta?._pp_title || post.title?.rendered || ""),
           listRows: items.map((text, i) => ({
             text: decodeHtmlEntities(text ?? ""),
             isPlus: Boolean(flags[i])
@@ -125,7 +126,7 @@ function Edit() {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
               className: "title",
-              children: post.meta?._pp_title || post.title?.rendered
+              children: post.mappedTitle
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
               className: "description",
               children: post.meta?._pp_description
@@ -169,7 +170,7 @@ function Edit() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: `${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-left.png`,
+            src: willowBlocksData.arrowLeft,
             alt: "Previous"
           })
         })
@@ -180,7 +181,7 @@ function Edit() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: `${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-right.png`,
+            src: willowBlocksData.arrowRight,
             alt: "Next"
           })
         })
@@ -348,7 +349,7 @@ module.exports = window["wp"]["element"];
   \*************************************************************/
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-packages-slider-block","version":"0.1.0","title":"Pricing Packages Slider Block","category":"widgets","icon":"smiley","description":"A custom slider block for the Pricing Section of the Willow Theme.","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScriptModule":"file:./view.js","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"willow-blocks/pricing-packages-slider-block","version":"0.1.0","title":"Pricing Packages Slider Block","category":"willow-blocks","icon":"slides","description":"A custom slider block for the Pricing Section of the Willow Theme.","example":{},"supports":{"html":false,"interactivity":true},"textdomain":"willow-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScriptModule":"file:./view.js","render":"file:./render.php"}');
 
 /***/ }
 

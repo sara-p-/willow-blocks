@@ -64,6 +64,7 @@
   margin: 0;
   margin-bottom: 1rem;
   line-height: 0.95;
+  white-space: pre-line;
 }
 .wp-block-willow-blocks-pricing-packages-slider-block p {
   color: #231f20;

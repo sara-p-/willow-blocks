@@ -7,8 +7,8 @@ return array(
 		'name' => 'willow-blocks/pricing-packages-accordion-block',
 		'version' => '0.1.0',
 		'title' => 'Pricing Packages Accordion Block',
-		'category' => 'widgets',
-		'icon' => 'smiley',
+		'category' => 'willow-blocks',
+		'icon' => 'list-view',
 		'description' => 'A custom accordion block for the Pricing Section of the Willow Theme.',
 		'example' => array(
 			
@@ -76,8 +76,8 @@ return array(
 		'name' => 'willow-blocks/pricing-packages-slider-block',
 		'version' => '0.1.0',
 		'title' => 'Pricing Packages Slider Block',
-		'category' => 'widgets',
-		'icon' => 'smiley',
+		'category' => 'willow-blocks',
+		'icon' => 'slides',
 		'description' => 'A custom slider block for the Pricing Section of the Willow Theme.',
 		'example' => array(
 			

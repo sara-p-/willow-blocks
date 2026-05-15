@@ -4,7 +4,7 @@ import apiFetch from "@wordpress/api-fetch";
 
 const decodeHtmlEntities = (str) => {
 	const txt = document.createElement("textarea");
-	txt.innerHTML = str;
+	txt.innerHTML = str.replace(/<br\s*\/?>/gi, "\n");
 	return txt.value;
 };
 
@@ -28,6 +28,9 @@ export default function Edit() {
 					const flags = post.meta?._pp_list_plus ?? [];
 					return {
 						...post,
+						mappedTitle: decodeHtmlEntities(
+							post.meta?._pp_title || post.title?.rendered || "",
+						),
 						listRows: items.map((text, i) => ({
 							text: decodeHtmlEntities(text ?? ""),
 							isPlus: Boolean(flags[i]),
@@ -113,9 +116,7 @@ export default function Edit() {
 										<p className="fake-button">Most Popular</p>
 									</div>
 
-									<h4 className="title">
-										{post.meta?._pp_title || post.title?.rendered}
-									</h4>
+									<h4 className="title">{post.mappedTitle}</h4>
 									<p className="description">{post.meta?._pp_description}</p>
 									<p className="price">
 										<span className="starting-at-text">starting at</span>{" "}
@@ -155,10 +156,7 @@ export default function Edit() {
 						disabled={currentIndex === 0}
 					>
 						<span className="icon">
-							<img
-								src={`${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-left.png`}
-								alt="Previous"
-							/>
+							<img src={willowBlocksData.arrowLeft} alt="Previous" />
 						</span>
 					</button>
 					<button
@@ -167,10 +165,7 @@ export default function Edit() {
 						disabled={currentIndex >= posts.length - slidesPerView}
 					>
 						<span className="icon">
-							<img
-								src={`${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-right.png`}
-								alt="Next"
-							/>
+							<img src={willowBlocksData.arrowRight} alt="Next" />
 						</span>
 					</button>
 				</div>

@@ -67,7 +67,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const decodeHtmlEntities = str => {
   const txt = document.createElement("textarea");
-  txt.innerHTML = str;
+  txt.innerHTML = str.replace(/<br\s*\/?>/gi, "\n");
   return txt.value;
 };
 const {
@@ -83,7 +83,7 @@ const {
     /** Display title: falls back to rendered title string */
     packageTitle() {
       const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
-      return ctx?.item?.meta?._pp_title || ctx?.item?.title?.rendered || "";
+      return ctx?.item?.mappedTitle || "";
     },
     packageDescription() {
       const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
@@ -161,6 +161,7 @@ const {
           const flags = post.meta?._pp_list_plus ?? [];
           return {
             ...post,
+            mappedTitle: decodeHtmlEntities(post.meta?._pp_title || post.title?.rendered || ""),
             listRows: items.map((text, i) => ({
               text: decodeHtmlEntities(text ?? ""),
               isPlus: Boolean(flags[i])

@@ -29,3 +29,31 @@ function create_block_willow_blocks_block_init() {
 	wp_register_block_types_from_metadata_collection( __DIR__ . '/build/blocks', __DIR__ . '/build/blocks-manifest.php' );
 }
 add_action( 'init', 'create_block_willow_blocks_block_init' );
+
+
+function willow_blocks_editor_assets() {
+    wp_localize_script(
+        'willow-blocks-pricing-packages-slider-block-editor-script',
+        'willowBlocksData',
+        [
+            'arrowLeft'  => plugin_dir_url( __FILE__ ) . 'assets/images/arrow-left.png',
+            'arrowRight' => plugin_dir_url( __FILE__ ) . 'assets/images/arrow-right.png',
+        ]
+    );
+}
+add_action( 'enqueue_block_editor_assets', 'willow_blocks_editor_assets' );
+
+
+function willow_blocks_category( $categories ) {
+    return array_merge(
+        [
+            [
+                'slug'  => 'willow-blocks',
+                'title' => 'Willow Blocks',
+                'icon'  => null,
+            ],
+        ],
+        $categories
+    );
+}
+add_filter( 'block_categories_all', 'willow_blocks_category' );

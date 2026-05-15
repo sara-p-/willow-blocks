@@ -21,12 +21,11 @@ wp_interactivity_config( 'willow-blocks/pricing-packages-slider-block', [
               class="slide"
               data-wp-class--is-featured="selectors.isItemFeatured"
           >
-          <p data-wp-text="selectors.debugListRows"></p>
             <div class="fake-button-container top-fake-button">
               <p class="fake-button">Most Popular</p>
             </div>
               <!-- Header  -->
-              <h4 class="title" data-wp-text="selectors.packageTitle"></h4>
+              <h4 class="title" data-wp-text="context.item.mappedTitle"></h4>
               <p class="description" data-wp-text="selectors.packageDescription"></p>
               <p class="price"><span class="starting-at-text">starting at</span> <span class="currency">$</span><span class="price-value" data-wp-text="selectors.packagePrice"></span></p>
             

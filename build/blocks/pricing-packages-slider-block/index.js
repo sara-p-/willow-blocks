@@ -12,53 +12,180 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Edit)
 /* harmony export */ });
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/pricing-packages-slider-block/editor.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-
-
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-
+const decodeHtmlEntities = str => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
+};
 function Edit() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-      ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Willow Blocks – pricing packages block editor!", "willow-blocks")
-    })
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
+  const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [loading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [currentIndex, setCurrentIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [slidesPerView, setSlidesPerView] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(3);
+  const trackRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const rootRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // ── Fetch posts ──────────────────────────────────────────────────────────
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+      path: "/wp/v2/pricing-package?orderby=menu_order&order=asc&per_page=100"
+    }).then(data => {
+      const mapped = data.map(post => {
+        const items = post.meta?._pp_list ?? [];
+        const flags = post.meta?._pp_list_plus ?? [];
+        return {
+          ...post,
+          listRows: items.map((text, i) => ({
+            text: decodeHtmlEntities(text ?? ""),
+            isPlus: Boolean(flags[i])
+          }))
+        };
+      });
+      setPosts(mapped);
+    }).catch(err => {
+      console.error("[pricing-packages-slider] Editor fetch error:", err);
+    }).finally(() => setLoading(false));
+  }, []);
+
+  // ── Set CSS custom properties when posts or slidesPerView change ─────────
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!rootRef.current || posts.length === 0) return;
+    rootRef.current.style.setProperty("--total-slides", posts.length);
+    rootRef.current.style.setProperty("--slides-per-view", slidesPerView);
+  }, [posts, slidesPerView]);
+
+  // ── Responsive breakpoints ───────────────────────────────────────────────
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const mqMobile = window.matchMedia("(max-width: 600px)");
+    const mqTablet = window.matchMedia("(max-width: 1024px)");
+    const onBreakpoint = () => {
+      if (mqMobile.matches) {
+        setSlidesPerView(1);
+      } else if (mqTablet.matches) {
+        setSlidesPerView(2);
+      } else {
+        setSlidesPerView(3);
+      }
+      setCurrentIndex(0);
+    };
+    mqMobile.addEventListener("change", onBreakpoint);
+    mqTablet.addEventListener("change", onBreakpoint);
+    onBreakpoint();
+    return () => {
+      mqMobile.removeEventListener("change", onBreakpoint);
+      mqTablet.removeEventListener("change", onBreakpoint);
+    };
+  }, []);
+
+  // ── Update track transform when index changes ────────────────────────────
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!trackRef.current || posts.length === 0) return;
+    const slideWidthPercent = 100 / posts.length;
+    const offset = currentIndex * slideWidthPercent;
+    trackRef.current.style.transform = `translateX(-${offset}%)`;
+  }, [currentIndex, posts]);
+  const prev = () => {
+    setCurrentIndex(i => Math.max(0, i - 1));
+  };
+  const next = () => {
+    setCurrentIndex(i => Math.min(posts.length - slidesPerView, i + 1));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    ...blockProps,
+    ref: rootRef,
+    children: [loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      children: "Loading..."
+    }), !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "slider",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "slider-wrapper",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "slider-track",
+          ref: trackRef,
+          children: posts.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: ["slide", post.meta?._pp_featured ? "is-featured" : ""].filter(Boolean).join(" "),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "fake-button-container top-fake-button",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+                className: "fake-button",
+                children: "Most Popular"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+              className: "title",
+              children: post.meta?._pp_title || post.title?.rendered
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "description",
+              children: post.meta?._pp_description
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+              className: "price",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "starting-at-text",
+                children: "starting at"
+              }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "currency",
+                children: "$"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "price-value",
+                children: post.meta?._pp_price
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "includes-text",
+              children: "This package includes:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+              className: "list",
+              children: post.listRows.map((row, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                className: ["list-item", row.isPlus ? "is-plus" : ""].filter(Boolean).join(" "),
+                children: row.text
+              }, i))
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "fake-button-container",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+                className: "fake-button",
+                children: "Select Package"
+              })
+            })]
+          }, post.id))
+        })
+      })
+    }), !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "slider-nav",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "slider-nav-button prev",
+        onClick: prev,
+        disabled: currentIndex === 0,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: `${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-left.png`,
+            alt: "Previous"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "slider-nav-button next",
+        onClick: next,
+        disabled: currentIndex >= posts.length - slidesPerView,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: `${wpApiSettings.root}../wp-content/plugins/willow-blocks/assets/images/arrow-right.png`,
+            alt: "Next"
+          })
+        })
+      })]
+    })]
   });
 }
 
@@ -153,18 +280,6 @@ function save() {
 
 /***/ },
 
-/***/ "./src/blocks/pricing-packages-slider-block/editor.scss"
-/*!**************************************************************!*\
-  !*** ./src/blocks/pricing-packages-slider-block/editor.scss ***!
-  \**************************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ },
-
 /***/ "./src/blocks/pricing-packages-slider-block/style.scss"
 /*!*************************************************************!*\
   !*** ./src/blocks/pricing-packages-slider-block/style.scss ***!
@@ -184,6 +299,16 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/api-fetch"
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["apiFetch"];
 
 /***/ },
 
@@ -207,23 +332,13 @@ module.exports = window["wp"]["blocks"];
 
 /***/ },
 
-/***/ "@wordpress/components"
-/*!************************************!*\
-  !*** external ["wp","components"] ***!
-  \************************************/
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 (module) {
 
-module.exports = window["wp"]["components"];
-
-/***/ },
-
-/***/ "@wordpress/i18n"
-/*!******************************!*\
-  !*** external ["wp","i18n"] ***!
-  \******************************/
-(module) {
-
-module.exports = window["wp"]["i18n"];
+module.exports = window["wp"]["element"];
 
 /***/ },
 

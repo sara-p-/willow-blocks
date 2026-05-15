@@ -19,10 +19,9 @@ wp_interactivity_config( 'willow-blocks/pricing-packages-slider-block', [
         <template data-wp-each="context.posts">
           <div
               class="slide"
-              data-wp-context='{ "isOpen": false }'
-              data-wp-class--is-open="context.isOpen"
               data-wp-class--is-featured="selectors.isItemFeatured"
           >
+          <p data-wp-text="selectors.debugListRows"></p>
             <div class="fake-button-container top-fake-button">
               <p class="fake-button">Most Popular</p>
             </div>
@@ -33,7 +32,7 @@ wp_interactivity_config( 'willow-blocks/pricing-packages-slider-block', [
             
             <p class="includes-text">This package includes:</p>
             <ul class="list">
-              <template data-wp-each="state.currentListRows">
+              <template data-wp-each="context.item.listRows">
                 <li
                   class="list-item"
                   data-wp-text="context.item.text"
@@ -51,12 +50,18 @@ wp_interactivity_config( 'willow-blocks/pricing-packages-slider-block', [
       </div>
     </div>
     <div class="slider-nav">
-      <button class="slider-nav-button prev">
+      <button
+        class="slider-nav-button prev"
+        data-wp-on--click="actions.prev"
+      >
         <span class="icon">
           <img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/images/arrow-left.png' ); ?>" alt="Previous">
         </span>
       </button>
-      <button class="slider-nav-button next">
+      <button
+        class="slider-nav-button next"
+        data-wp-on--click="actions.next"
+      >
         <span class="icon">
           <img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/images/arrow-right.png' ); ?>" alt="Next">
         </span>

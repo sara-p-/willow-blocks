@@ -1,37 +1,6 @@
 import * as __WEBPACK_EXTERNAL_MODULE__wordpress_interactivity_8e89b257__ from "@wordpress/interactivity";
 /******/ var __webpack_modules__ = ({
 
-/***/ "./src/utils/decode-html-entities.js"
-/*!*******************************************!*\
-  !*** ./src/utils/decode-html-entities.js ***!
-  \*******************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   decodeHtmlEntities: () => (/* binding */ decodeHtmlEntities)
-/* harmony export */ });
-/**
- * Decode HTML entities for plain-text display (e.g. data-wp-text / textContent).
- * Loops until stable to handle values like "&amp;#038;" from double encoding.
- */
-function decodeHtmlEntities(text) {
-  if (!text || typeof text !== "string") {
-    return "";
-  }
-  let decoded = text;
-  let previous = "";
-  while (decoded !== previous) {
-    previous = decoded;
-    const textarea = document.createElement("textarea");
-    textarea.innerHTML = decoded;
-    decoded = textarea.value;
-  }
-  return decoded;
-}
-
-/***/ },
-
 /***/ "@wordpress/interactivity"
 /*!*******************************************!*\
   !*** external "@wordpress/interactivity" ***!
@@ -75,23 +44,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__wordpress_interactivity_8e89b257__;
 /******/ }
 /******/ 
 /************************************************************************/
-/******/ /* webpack/runtime/define property getters */
-/******/ (() => {
-/******/ 	// define getter functions for harmony exports
-/******/ 	__webpack_require__.d = (exports, definition) => {
-/******/ 		for(var key in definition) {
-/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 			}
-/******/ 		}
-/******/ 	};
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/hasOwnProperty shorthand */
-/******/ (() => {
-/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ })();
-/******/ 
 /******/ /* webpack/runtime/make namespace object */
 /******/ (() => {
 /******/ 	// define __esModule on exports
@@ -112,72 +64,138 @@ var __webpack_exports__ = {};
   \**********************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/interactivity */ "@wordpress/interactivity");
-/* harmony import */ var _utils_decode_html_entities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/decode-html-entities */ "./src/utils/decode-html-entities.js");
 
-
-const isFeaturedMeta = value => value === true || value === 1 || value === "1";
-(0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.store)("willow-blocks/pricing-packages-slider-block", {
+const decodeHtmlEntities = str => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
+};
+const {
+  state,
+  actions,
+  callbacks
+} = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.store)("willow-blocks/pricing-packages-slider-block", {
   state: {
-    get currentListRows() {
-      const context = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
-      const items = context.item?.meta?._pp_list ?? [];
-      const flags = context.item?.meta?._pp_list_plus ?? [];
-      return items.map((text, i) => ({
-        text: (0,_utils_decode_html_entities__WEBPACK_IMPORTED_MODULE_1__.decodeHtmlEntities)(text ?? ""),
-        isPlus: Boolean(flags[i])
-      }));
-    }
+    currentIndex: 0,
+    slidesPerView: 3
   },
   selectors: {
-    packageTitle: () => (0,_utils_decode_html_entities__WEBPACK_IMPORTED_MODULE_1__.decodeHtmlEntities)((0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)().item?.title?.rendered ?? ""),
-    packageDescription: () => (0,_utils_decode_html_entities__WEBPACK_IMPORTED_MODULE_1__.decodeHtmlEntities)((0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)().item?.meta?._pp_description ?? ""),
-    packagePrice: () => (0,_utils_decode_html_entities__WEBPACK_IMPORTED_MODULE_1__.decodeHtmlEntities)((0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)().item?.meta?._pp_price ?? ""),
-    accordionTriggerText: () => {
-      const context = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
-      return context.isOpen ? "Collapse" : "Expand";
+    /** Display title: falls back to rendered title string */
+    packageTitle() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      return ctx?.item?.meta?._pp_title || ctx?.item?.title?.rendered || "";
     },
-    isItemFeatured: () => isFeaturedMeta((0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)().item?.meta?._pp_featured)
+    packageDescription() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      return ctx?.item?.meta?._pp_description || "";
+    },
+    packagePrice() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      return ctx?.item?.meta?._pp_price || "";
+    },
+    /** Adds the is-featured class when the post meta flag is truthy */
+    isItemFeatured() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      return !!ctx?.item?.meta?._pp_featured;
+    }
   },
   actions: {
-    toggleAccordion() {
-      const context = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
-      context.isOpen = !context.isOpen;
+    prev() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      const total = ctx.posts.length;
+      if (state.currentIndex === 0) return;
+      state.currentIndex -= 1;
+      actions._updateTrack(ctx);
     },
-    *fetchPosts() {
-      const context = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+    next() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
+      const total = ctx.posts.length;
+      if (state.currentIndex >= total - state.slidesPerView) return;
+      state.currentIndex += 1;
+      actions._updateTrack(ctx);
+    },
+    /**
+     * Moves the slider track. Called exclusively from data-wp-on--click
+     * handlers so getElement() is always in scope.
+     */
+    _updateTrack(ctx) {
       const {
-        apiUrl,
-        nonce
-      } = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getConfig)();
-      context.loading = true;
-      const params = new URLSearchParams({
-        per_page: 12,
-        orderby: "menu_order",
-        order: "asc",
-        _fields: "id,title,meta"
-      });
-      const res = yield fetch(`${apiUrl}?${params}`, {
-        headers: {
-          "X-WP-Nonce": nonce
-        }
-      });
-      const data = yield res.json();
-      context.posts = data.map(post => ({
-        ...post,
-        meta: {
-          ...post.meta,
-          _pp_featured: isFeaturedMeta(post.meta?._pp_featured)
-        }
-      }));
-      context.loading = false;
+        ref
+      } = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getElement)();
+      const root = ref.closest('[data-wp-interactive="willow-blocks/pricing-packages-slider-block"]');
+      if (!root) return;
+      const track = root.querySelector(".slider-track");
+      if (!track) return;
+      const total = ctx.posts.length;
+      // Each slide is (100 / total)% of the track width regardless
+      // of how many are visible, so offset by one slide per index step.
+      const slideWidthPercent = 100 / total;
+      const offset = state.currentIndex * slideWidthPercent;
+      track.style.transform = `translateX(-${offset}%)`;
     }
   },
   callbacks: {
-    onInit() {
+    async onInit() {
+      const ctx = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getContext)();
       const {
-        actions
-      } = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.store)("willow-blocks/pricing-packages-slider-block");
-      actions.fetchPosts();
+        ref
+      } = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getElement)();
+      const config = (0,_wordpress_interactivity__WEBPACK_IMPORTED_MODULE_0__.getConfig)();
+
+      // ── Fetch posts ──────────────────────────────────────────
+      try {
+        const url = new URL(config.apiUrl);
+        url.searchParams.set("orderby", "menu_order");
+        url.searchParams.set("order", "asc");
+        const response = await fetch(url.toString(), {
+          headers: {
+            "X-WP-Nonce": config.nonce
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`REST API error: ${response.status}`);
+        }
+        const posts = await response.json();
+        ctx.posts = posts.map(post => {
+          const items = post.meta?._pp_list ?? [];
+          const flags = post.meta?._pp_list_plus ?? [];
+          return {
+            ...post,
+            listRows: items.map((text, i) => ({
+              text: decodeHtmlEntities(text ?? ""),
+              isPlus: Boolean(flags[i])
+            }))
+          };
+        });
+        ref.style.setProperty("--total-slides", posts.length);
+        ref.style.setProperty("--slides-per-view", state.slidesPerView);
+      } catch (err) {
+        console.error("[pricing-packages-slider] Failed to load posts:", err);
+      } finally {
+        ctx.loading = false;
+      }
+
+      // ── Responsive: 3 slides → 2 → 1 ────────────────────────
+      const mqMobile = window.matchMedia("(max-width: 600px)");
+      const mqTablet = window.matchMedia("(max-width: 1024px)");
+      const onBreakpoint = () => {
+        if (mqMobile.matches) {
+          state.slidesPerView = 1;
+        } else if (mqTablet.matches) {
+          state.slidesPerView = 2;
+        } else {
+          state.slidesPerView = 3;
+        }
+        ref.style.setProperty("--slides-per-view", state.slidesPerView);
+
+        // Reset position on breakpoint change.
+        state.currentIndex = 0;
+        const track = ref.querySelector(".slider-track");
+        if (track) track.style.transform = "translateX(0%)";
+      };
+      mqMobile.addEventListener("change", onBreakpoint);
+      mqTablet.addEventListener("change", onBreakpoint);
+      onBreakpoint(); // run once on init
     }
   }
 });

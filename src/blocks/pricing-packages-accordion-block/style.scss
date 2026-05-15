@@ -1,0 +1,205 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-willow-blocks-pricing-packages-accordion-block {
+	.accordion-items-container {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 3.5rem;
+	}
+	.accordion-item {
+		padding: 2rem 1rem 3rem 1rem;
+		color: #231f20;
+		border-radius: 40px;
+		border: 1px solid #67201e;
+		background: #fff;
+		width: 100%;
+		max-width: 350px;
+		position: relative;
+		&.is-featured {
+			border: 3px solid #f1977c;
+		}
+	}
+
+	.accordion-panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s ease;
+		overflow: hidden;
+
+		.accordion-panel-content {
+			min-height: 0;
+		}
+	}
+
+	.accordion-item.is-open {
+		.accordion-panel {
+			grid-template-rows: 1fr;
+		}
+	}
+
+	& .accordion-title {
+		color: #67201e;
+		font-style: italic;
+		font-size: clamp(2.19rem, calc(1.96rem + 1.136vw), 2.81rem);
+		margin: 0;
+		line-height: 0.95;
+	}
+
+	p {
+		color: #231f20;
+		font-family: Helvetica;
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 400;
+		letter-spacing: -0.32px;
+	}
+
+	.price {
+		color: #2c4e3f;
+		font-family: Helvetica;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 300;
+		letter-spacing: -0.4px;
+
+		.currency,
+		.price-value {
+			color: #3a4740;
+			font-family: "AR One Sans", sans-serif;
+			font-size: clamp(2.19rem, calc(1.96rem + 1.136vw), 2.81rem);
+			font-style: normal;
+			font-weight: 600;
+			letter-spacing: -1.8px;
+			line-height: 0.95;
+		}
+	}
+
+	.accordion-trigger-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.accordion-trigger {
+		appearance: none;
+		border: none;
+		background: none;
+		padding: 0;
+		margin: 0;
+		cursor: pointer;
+		color: #600023;
+		text-align: center;
+		font-family: Helvetica;
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: 3.68px;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+	}
+
+	.icon {
+		vertical-align: middle;
+	}
+
+	.open-icon {
+		width: 15px;
+	}
+	.close-icon {
+		width: 13px;
+		vertical-align: super;
+	}
+
+	.includes-text {
+		color: #231f20;
+		text-align: left;
+		font-family: Helvetica;
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: -0.32px;
+		font-style: italic;
+	}
+
+	.list {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		li {
+			display: flex;
+			align-items: flex-start;
+			gap: 8px;
+
+			&::before {
+				content: "";
+				display: inline-block;
+				width: 21px;
+				height: 21px;
+				margin-top: 5px;
+				flex-shrink: 0;
+				background-image: url("../../../assets/images/checkmark-icon.png");
+				background-size: contain;
+				background-repeat: no-repeat;
+			}
+		}
+		.list-item.is-plus {
+			&::before {
+				background-image: url("../../../assets/images/open-icon.png");
+			}
+		}
+	}
+
+	.fake-button-container {
+		position: absolute;
+		bottom: -24px;
+		left: 0;
+		right: 0;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&.top-fake-button {
+			bottom: auto;
+			top: -48px;
+			display: none;
+		}
+	}
+
+	.accordion-item.is-featured .fake-button-container.top-fake-button {
+		display: flex;
+	}
+
+	.fake-button {
+		display: inline-block;
+		padding: 12px 4rem;
+		background: #67201e;
+		border-radius: 30px;
+		color: #fff;
+		text-align: center;
+		font-family: "Crimson Text", serif;
+		font-size: 22px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 1;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.accordion-item.is-featured {
+		.fake-button {
+			background: #f1977c;
+		}
+	}
+}

@@ -1,0 +1,187 @@
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/pricing-packages-slider-block/style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-willow-blocks-pricing-packages-slider-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  width: 100%;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider .slider-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider .slider-track {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 2rem 0;
+  gap: 1rem;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide {
+  padding: 2rem 1rem 3rem 1rem;
+  color: #231f20;
+  border-radius: 40px;
+  border: 1px solid #67201e;
+  background: #fff;
+  width: 33.33%;
+  flex: 0 0 33.33%;
+  max-width: 350px;
+  position: relative;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide.is-featured {
+  border: 3px solid #f1977c;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+  overflow: hidden;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide-panel .slide-panel-content {
+  min-height: 0;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .title {
+  color: #67201e;
+  font-style: italic;
+  font-size: clamp(2.19rem, 1.96rem + 1.136vw, 2.81rem);
+  margin: 0;
+  margin-bottom: 1rem;
+  line-height: 0.95;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block p {
+  color: #231f20;
+  font-family: Helvetica;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -0.32px;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .price {
+  color: #2c4e3f;
+  font-family: Helvetica;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: -0.4px;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .price .currency,
+.wp-block-willow-blocks-pricing-packages-slider-block .price .price-value {
+  color: #3a4740;
+  font-family: "AR One Sans", sans-serif;
+  font-size: clamp(2.19rem, 1.96rem + 1.136vw, 2.81rem);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  line-height: 0.95;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .includes-text {
+  color: #231f20;
+  text-align: left;
+  font-family: Helvetica;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+  font-style: italic;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .list li::before {
+  content: "";
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  margin-top: 5px;
+  flex-shrink: 0;
+  background-image: url(../../images/checkmark-icon.72df4435.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .list .list-item.is-plus::before {
+  background-image: url(../../images/open-icon.0062a656.png);
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .fake-button-container {
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .fake-button-container.top-fake-button {
+  bottom: auto;
+  top: -24px;
+  display: none;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide.is-featured .fake-button-container.top-fake-button {
+  display: flex;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .fake-button {
+  display: inline-block;
+  padding: 12px 4rem;
+  background: #67201e;
+  border-radius: 30px;
+  color: #fff;
+  text-align: center;
+  font-family: "Crimson Text", serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slide.is-featured .fake-button {
+  background: #f1977c;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider-nav-button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider-nav-button img {
+  width: 12px;
+  height: auto;
+}
+.wp-block-willow-blocks-pricing-packages-slider-block .slider-nav-button:hover {
+  opacity: 0.5;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -1,11 +1,26 @@
 import { store, getContext, getConfig } from "@wordpress/interactivity";
 
+const isFeaturedMeta = (value) =>
+	value === true || value === 1 || value === "1";
+
 store("willow-blocks/pricing-packages-block", {
 	state: {
-		get currentItems() {
+		get currentListRows() {
 			const context = getContext();
-			return context.item?.meta?._pp_list ?? [];
+			const items = context.item?.meta?._pp_list ?? [];
+			const flags = context.item?.meta?._pp_list_plus ?? [];
+			return items.map((text, i) => ({
+				text,
+				isPlus: Boolean(flags[i]),
+			}));
 		},
+	},
+	selectors: {
+		accordionTriggerText: () => {
+			const context = getContext();
+			return context.isOpen ? "Collapse" : "Expand";
+		},
+		isItemFeatured: () => isFeaturedMeta(getContext().item?.meta?._pp_featured),
 	},
 	actions: {
 		toggleAccordion() {
@@ -20,8 +35,8 @@ store("willow-blocks/pricing-packages-block", {
 
 			const params = new URLSearchParams({
 				per_page: 12,
-				orderby: "date",
-				order: "desc",
+				orderby: "menu_order",
+				order: "asc",
 				_fields: "id,title,meta",
 			});
 
@@ -31,9 +46,14 @@ store("willow-blocks/pricing-packages-block", {
 
 			const data = yield res.json();
 
-			context.posts = data;
+			context.posts = data.map((post) => ({
+				...post,
+				meta: {
+					...post.meta,
+					_pp_featured: isFeaturedMeta(post.meta?._pp_featured),
+				},
+			}));
 			context.loading = false;
-			console.log(data);
 		},
 	},
 	callbacks: {

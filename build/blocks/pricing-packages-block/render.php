@@ -13,39 +13,66 @@ wp_interactivity_config( 'willow-blocks/pricing-packages-block', [
 >
     <p data-wp-bind--hidden="!context.loading">Loading...</p>
 
-    <div data-wp-bind--hidden="context.loading">
+    <div class="accordion-items-container" data-wp-bind--hidden="context.loading">
         <template data-wp-each="context.posts">
           <div
               class="accordion-item"
               data-wp-context='{ "isOpen": false }'
+              data-wp-class--is-open="context.isOpen"
+              data-wp-class--is-featured="selectors.isItemFeatured"
           >
+            <div class="fake-button-container top-fake-button">
+              <p class="fake-button">Most Popular</p>
+            </div>
               <!-- Header — clicking toggles isOpen -->
-               <div class="accordion-header">
-                <h2 class="accordion-title" data-wp-text="context.item.title.rendered"></h2>
+            <div class="accordion-header">
+              <h4 class="accordion-title" data-wp-text="context.item.title.rendered"></h4>
+              <p class="description" data-wp-text="context.item.meta._pp_description"></p>
+              <p class="price"><span class="starting-at-text">starting at</span> <span class="currency">$</span><span class="price-value" data-wp-text="context.item.meta._pp_price"></span></p>
+              <div class="accordion-trigger-container">
                 <button
                     class="accordion-trigger"
                     data-wp-on--click="actions.toggleAccordion"
                     data-wp-bind--aria-expanded="context.isOpen"
                 >
                     
-                  expand
+                  <span data-wp-text="selectors.accordionTriggerText">Expand </span>
+                  <span class="icon">
+                    <img
+                      class="open-icon"
+                      src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/images/open-icon.png' ); ?>"
+                      alt="Expand"
+                      data-wp-bind--hidden="context.isOpen"
+                    />
+                    <img
+                      class="close-icon"
+                      src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/images/close-icon.png' ); ?>"
+                      alt="Collapse"
+                      data-wp-bind--hidden="!context.isOpen"
+                    />
+                  </span>
                 </button>
-              
               </div>
+            </div>
               <!-- Panel — shown/hidden based on isOpen -->
-              <div
+            <div
                   class="accordion-panel"
-                  data-wp-bind--hidden="!context.isOpen"
               >
-                <p class="description" data-wp-text="context.item.meta._pp_description"></p>
-                <p class="price">$<span data-wp-text="context.item.meta._pp_price"></span></p>
+              <div class="accordion-panel-content">
+                <p class="includes-text">This package includes:</p>
                 <ul class="list">
-                  <template data-wp-each="state.currentItems">
-                    <li data-wp-text="context.item"></li>
+                  <template data-wp-each="state.currentListRows">
+                    <li
+                      class="list-item"
+                      data-wp-text="context.item.text"
+                      data-wp-class--is-plus="context.item.isPlus"
+                    ></li>
                   </template>
                 </ul>
-                <a data-wp-bind--href="context.item.meta._pp_link.url">Read more</a>
               </div>
+            </div>
+            <div class="fake-button-container">
+              <a class="fake-button" data-wp-bind--href="context.item.meta._pp_link.url">Select Package</a>
             </div>
           </div>
         </template>
